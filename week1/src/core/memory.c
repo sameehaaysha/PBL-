@@ -1,26 +1,28 @@
 #include <stdio.h>
 
-#define MEMORY_SIZE 100
+#define MEMORY_CAPACITY 100
 
-int memory[MEMORY_SIZE];
+int memoryData[MEMORY_CAPACITY];
 
-void memory_write(int address, int value)
+void writeMemory(int location, int data)
 {
-    if (address < 0 || address >= MEMORY_SIZE) {
+    if (location < 0 || location >= MEMORY_CAPACITY)
+    {
         printf("Error: Invalid memory address\n");
         return;
     }
 
-    memory[address] = value;
-    printf("Memory[%d] = %d\n", address, value);
+    memoryData[location] = data;
+    printf("Memory[%d] = %d\n", location, data);
 }
 
-int memory_read(int address)
+int readMemory(int location)
 {
-    if (address < 0 || address >= MEMORY_SIZE) {
+    if (location < 0 || location >= MEMORY_CAPACITY)
+    {
         printf("Error: Invalid memory address\n");
         return -1;
     }
 
-    return memory[address];
+    return memoryData[location];
 }

@@ -2,20 +2,20 @@
 #include <string.h>
 
 typedef struct {
-    int accumulator;
-    int program_counter;
-    int running;
-} CPU;
+    int acc;
+    int pc;
+    int active;
+} Processor;
 
 /* CPU */
-void execute_instruction(CPU *cpu, char instruction[]);
+void execute_instruction(Processor *cpu, char instruction[]);
 
 /* Memory */
-void memory_write(int address, int value);
-int memory_read(int address);
+void writeMemory(int location, int data);
+int readMemory(int location);
 
 /* Stack */
-void push(int value);
+void push(int number);
 int pop(void);
 int peek(void);
 
@@ -26,68 +26,70 @@ int queue_peek(void);
 
 int main()
 {
-    CPU cpu = {0, 0, 1};
+    Processor cpu = {0, 0, 1};
 
     char instruction[100];
-    char operation[20];
+    char command[20];
+
     int value;
     int address;
     int result;
 
-    while (cpu.running)
+    while (cpu.active)
     {
         printf("\nEnter instruction: ");
         fgets(instruction, sizeof(instruction), stdin);
 
         instruction[strcspn(instruction, "\n")] = '\0';
 
-        sscanf(instruction, "%s", operation);
+        sscanf(instruction, "%s", command);
 
-        if (strcmp(operation, "STORE") == 0)
+        if (strcmp(command, "STORE") == 0)
         {
-            sscanf(instruction, "%s %d %d", operation, &address, &value);
-            memory_write(address, value);
+            sscanf(instruction, "%s %d %d", command, &address, &value);
+            writeMemory(address, value);
         }
-        else if (strcmp(operation, "READ") == 0)
+        else if (strcmp(command, "READ") == 0)
         {
-            sscanf(instruction, "%s %d", operation, &address);
-            result = memory_read(address);
+            sscanf(instruction, "%s %d", command, &address);
+
+            result = readMemory(address);
 
             if (result != -1)
                 printf("Memory[%d] = %d\n", address, result);
         }
-        else if (strcmp(operation, "PUSH") == 0)
+        else if (strcmp(command, "PUSH") == 0)
         {
-            sscanf(instruction, "%s %d", operation, &value);
+            sscanf(instruction, "%s %d", command, &value);
             push(value);
         }
-        else if (strcmp(operation, "POP") == 0)
+        else if (strcmp(command, "POP") == 0)
         {
             result = pop();
 
             if (result != -1)
                 printf("Popped %d\n", result);
         }
-        else if (strcmp(operation, "PEEK") == 0)
+        else if (strcmp(command, "PEEK") == 0)
         {
             result = peek();
 
             if (result != -1)
                 printf("Top = %d\n", result);
         }
-        else if (strcmp(operation, "ENQUEUE") == 0)
+        else if (strcmp(command, "ENQUEUE") == 0)
         {
-            sscanf(instruction, "%s %d", operation, &value);
+            sscanf(instruction, "%s %d", command, &value);
             enqueue(value);
         }
-        else if (strcmp(operation, "DEQUEUE") == 0)
+        else if (strcmp(command, "DEQUEUE") == 0)
         {
             result = dequeue();
 
             if (result != -1)
                 printf("Dequeued %d\n", result);
         }
-        else if (strcmp(operation, "QPEEK") == 0)
+        else if (strcmp(command, "QPEEK") == 0)
         {
             result = queue_peek();
 
@@ -100,8 +102,8 @@ int main()
         }
     }
 
-    printf("\nFinal ACC = %d\n", cpu.accumulator);
-    printf("Final PC = %d\n", cpu.program_counter);
+    printf("\nFinal ACC = %d\n", cpu.acc);
+    printf("Final PC = %d\n", cpu.pc);
 
     return 0;
 }

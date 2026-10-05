@@ -2,50 +2,59 @@
 #include <string.h>
 
 typedef struct {
-    int accumulator;
-    int program_counter;
-    int running;
-} CPU;
+    int acc;
+    int pc;
+    int active;
+} Processor;
 
-void execute_instruction(CPU *cpu, char instruction[])
+void execute_instruction(Processor *cpu, char instruction[])
 {
-    char opcode[10];
-    int value;
+    char command[10];
+    int number = 0;
 
-    sscanf(instruction, "%s %d", opcode, &value);
+    sscanf(instruction, "%s %d", command, &number);
 
-    if (strcmp(opcode, "LOAD") == 0) {
-        cpu->accumulator = value;
-        printf("ACC = %d\n", cpu->accumulator);
+    if (strcmp(command, "LOAD") == 0)
+    {
+        cpu->acc = number;
+        printf("ACC = %d\n", cpu->acc);
     }
-    else if (strcmp(opcode, "ADD") == 0) {
-        cpu->accumulator += value;
-        printf("ACC = %d\n", cpu->accumulator);
+    else if (strcmp(command, "ADD") == 0)
+    {
+        cpu->acc = cpu->acc + number;
+        printf("ACC = %d\n", cpu->acc);
     }
-    else if (strcmp(opcode, "SUB") == 0) {
-        cpu->accumulator -= value;
-        printf("ACC = %d\n", cpu->accumulator);
+    else if (strcmp(command, "SUB") == 0)
+    {
+        cpu->acc = cpu->acc - number;
+        printf("ACC = %d\n", cpu->acc);
     }
-    else if (strcmp(opcode, "MUL") == 0) {
-        cpu->accumulator *= value;
-        printf("ACC = %d\n", cpu->accumulator);
+    else if (strcmp(command, "MUL") == 0)
+    {
+        cpu->acc = cpu->acc * number;
+        printf("ACC = %d\n", cpu->acc);
     }
-    else if (strcmp(opcode, "DIV") == 0) {
-        if (value == 0) {
+    else if (strcmp(command, "DIV") == 0)
+    {
+        if (number == 0)
+        {
             printf("Error: Cannot divide by zero\n");
         }
-        else {
-            cpu->accumulator /= value;
-            printf("ACC = %d\n", cpu->accumulator);
+        else
+        {
+            cpu->acc = cpu->acc / number;
+            printf("ACC = %d\n", cpu->acc);
         }
     }
-    else if (strcmp(opcode, "HALT") == 0) {
-        cpu->running = 0;
+    else if (strcmp(command, "HALT") == 0)
+    {
+        cpu->active = 0;
         printf("CPU stopped\n");
     }
-    else {
+    else
+    {
         printf("Invalid instruction\n");
     }
 
-    cpu->program_counter++;
+    cpu->pc++;
 }

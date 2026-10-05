@@ -1,37 +1,45 @@
 #include <stdio.h>
 
-#define STACK_SIZE 100
+#define MAX_ITEMS 100
 
-int stack[STACK_SIZE];
-int top = -1;
+int stackData[MAX_ITEMS];
+int stackTop = -1;
 
-void push(int value)
+void push(int number)
 {
-    if (top == STACK_SIZE - 1) {
-        printf("Error: Stack overflow\n");
+    if (stackTop >= MAX_ITEMS - 1)
+    {
+        printf("Error: Stack is full\n");
         return;
     }
 
-    stack[++top] = value;
-    printf("Pushed %d\n", value);
+    stackTop++;
+    stackData[stackTop] = number;
+
+    printf("Pushed %d\n", number);
 }
 
 int pop()
 {
-    if (top == -1) {
-        printf("Error: Stack underflow\n");
+    if (stackTop < 0)
+    {
+        printf("Error: Stack is empty\n");
         return -1;
     }
 
-    return stack[top--];
+    int number = stackData[stackTop];
+    stackTop--;
+
+    return number;
 }
 
 int peek()
 {
-    if (top == -1) {
+    if (stackTop < 0)
+    {
         printf("Stack is empty\n");
         return -1;
     }
 
-    return stack[top];
+    return stackData[stackTop];
 }
