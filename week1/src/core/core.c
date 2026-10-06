@@ -7,19 +7,19 @@ typedef struct {
     int active;
 } Processor;
 
-/* CPU */
+
 void execute_instruction(Processor *cpu, char instruction[]);
 
-/* Memory */
+
 void writeMemory(int location, int data);
 int readMemory(int location);
 
-/* Stack */
+
 void push(int number);
 int pop(void);
 int peek(void);
 
-/* Queue */
+
 void enqueue(int value);
 int dequeue(void);
 int queue_peek(void);
