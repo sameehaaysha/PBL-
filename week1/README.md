@@ -74,9 +74,9 @@ week1/
 | Member | Role | Contribution |
 |---|---|---|
 | Sameeha | Team Lead | IPC Integration |
-| Riya Hency DSA | Developer | Core |
-| Shashwath | Developer | Logger |
-| Jonnaes | Developer | UI |
+| Riya Hency Dsa | Developer | Core |
+| Shashwath shetty| Developer | Logger |
+| Joannes| Developer | UI |
 
 ## Modules
 
