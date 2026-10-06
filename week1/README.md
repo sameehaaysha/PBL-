@@ -4,26 +4,21 @@ A C-based multi-process simulator that demonstrates basic system operations (CPU
 
 **Platform:** Linux (Ubuntu) | **Language:** C | **Compiler:** GCC
 
----
-
 ## Overview
 
-The simulator is split into independent processes that communicate only through message queues:
+The simulator is split into three processes that communicate only through message queues:
 
 - **UI** accepts commands from the user.
 - **Core** executes the commands and returns results.
 - **Logger** records execution and error events.
 
-This separation shows how real systems keep input handling, processing, and logging independent of each other.
-
 ## How It Works
 
-1. The user types a command in the **UI** process.
-2. The UI sends it to the **Core** through the `/UI_TO_CORE` queue.
-3. The Core executes the command with the matching module (CPU, Memory, Stack, or Queue).
-4. The Core sends the result back to the UI through `/CORE_TO_UI`.
-5. The Core also sends a log entry to the **Logger** through `/CORE_TO_LOG`.
-6. The cycle repeats until the user enters `EXIT`.
+1. The user types a command in the UI.
+2. The UI sends it to the Core through `/UI_TO_CORE`.
+3. The Core executes it and sends the result back through `/CORE_TO_UI`.
+4. The Core also sends a log entry to the Logger through `/CORE_TO_LOG`.
+5. This repeats until the user enters `EXIT`.
 
 ## Features
 
@@ -34,21 +29,6 @@ This separation shows how real systems keep input handling, processing, and logg
 - Multi-process design using `fork()` and `execl()`
 - Message-based IPC using POSIX Message Queues
 - Centralized execution and error logging
-
-## Architecture
-
-| Queue | Direction | Purpose |
-|---|---|---|
-| `/UI_TO_CORE` | UI → Core | Sends user commands |
-| `/CORE_TO_UI` | Core → UI | Returns execution results |
-| `/CORE_TO_LOG` | Core → Logger | Sends execution and error logs |
-
-```mermaid
-flowchart TD
-    UI[UI] -->|/UI_TO_CORE| CORE[Core]
-    CORE -->|/CORE_TO_UI| RESULT[UI - Result]
-    CORE -->|/CORE_TO_LOG| LOG[Logger]
-```
 
 ## Project Structure
 
@@ -69,67 +49,17 @@ week1/
 │   └── ui.c              # User interface process
 └── README.md
 ```
-## Team
-
-| Member | Role | Contribution |
-|---|---|---|
-| Sameeha | Team Lead | IPC Integration |
-| Riya Hency Dsa | Developer | Core |
-| Shashwath shetty| Developer | Logger |
-| Joannes| Developer | UI |
-
-## Modules
-
-| Module | Responsibility |
-|---|---|
-| Core | Executes simulator operations |
-| CPU | Arithmetic operations |
-| Memory | Address-based storage and retrieval |
-| Stack | Last-in, first-out data structure |
-| Queue | First-in, first-out data structure |
-| UI | Reads user commands |
-| Logger | Writes execution and error logs |
-| IPC | Connects the processes |
-
-## Command Reference
-
-| Command | Syntax | Description |
-|---|---|---|
-| LOAD | `LOAD <value>` | Load a value |
-| ADD, SUB, MUL, DIV | `ADD <value>` | Arithmetic on the loaded value |
-| STORE | `STORE <addr> <value>` | Store a value at an address |
-| READ | `READ <addr>` | Read the value at an address |
-| PUSH | `PUSH <value>` | Push a value onto the stack |
-| POP | `POP` | Remove the top of the stack |
-| PEEK | `PEEK` | View the top of the stack |
-| ENQUEUE | `ENQUEUE <value>` | Add a value to the queue |
-| DEQUEUE | `DEQUEUE` | Remove the front of the queue |
-| QPEEK | `QPEEK` | View the front of the queue |
-| EXIT | `EXIT` | Terminate the simulator |
-
-## Sample Session
-
-```text
-LOAD 10
-ADD 5
-STORE 5 100
-READ 5
-PUSH 50
-PEEK
-POP
-ENQUEUE 25
-QPEEK
-DEQUEUE
-EXIT
-```
 
 ## Technologies
 
-- C
-- GCC
-- Linux / Ubuntu
-- POSIX Message Queues
+C, GCC, Linux / Ubuntu, POSIX Message Queues
 
+## Team
+
+- **Sameeha** (Team Lead): IPC Integration
+- **Riya Hency DSA**: Core
+- **Shashwath Shetty**: Logger
+- **Joannes**: UI
 
 ## Result
 
