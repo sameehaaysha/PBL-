@@ -1,0 +1,94 @@
+CPU PROCESS SCHEDULING SIMULATOR
+TEST CASES, SAMPLE OUTPUTS AND GANTT CHARTS
+
+==================================================
+TEST CASE 1: ALL PROCESSES ARRIVE AT TIME 0
+==================================================
+
+Input:
+Number of processes: 3
+
+Process   Arrival Time   Burst Time
+P1        0              5
+P2        0              3
+P3        0              2
+
+Gantt Chart:
+0       5       8       10
+|  P1   |  P2   |  P3   |
+0       5       8       10
+
+Sample Output:
+PID   AT   BT   CT   WT   TAT   RT
+P1    0    5    5    0    5     0
+P2    0    3    8    5    8     5
+P3    0    2    10   8    10    8
+
+Average Waiting Time: 4.33
+Average Turnaround Time: 7.67
+CPU Busy Time: 10
+CPU Idle Time: 0
+CPU Utilization: 100%
+
+
+==================================================
+TEST CASE 2: DIFFERENT ARRIVAL TIMES
+==================================================
+
+Input:
+Number of processes: 3
+
+Process   Arrival Time   Burst Time
+P1        0              4
+P2        2              3
+P3        7              2
+
+Gantt Chart:
+0       4       7       9
+|  P1   |  P2   |  P3   |
+0       4       7       9
+
+Sample Output:
+PID   AT   BT   CT   WT   TAT   RT
+P1    0    4    4    0    4     0
+P2    2    3    7    2    5     2
+P3    7    2    9    0    2     0
+
+Average Waiting Time: 0.67
+Average Turnaround Time: 3.67
+CPU Busy Time: 9
+CPU Idle Time: 0
+CPU Utilization: 100%
+
+
+==================================================
+TEST CASE 3: CPU IDLE TIME
+==================================================
+
+Input:
+Number of processes: 2
+
+Process   Arrival Time   Burst Time
+P1        3              4
+P2        9              2
+
+Gantt Chart:
+0       3       7       9       11
+| IDLE  |  P1   | IDLE  |  P2   |
+0       3       7       9       11
+
+Sample Output:
+PID   AT   BT   CT   WT   TAT   RT
+P1    3    4    7    0    4     0
+P2    9    2    11   0    2     0
+
+Average Waiting Time: 0.00
+Average Turnaround Time: 3.00
+CPU Busy Time: 6
+CPU Idle Time: 5
+CPU Utilization: 54.55%
+
+
+==================================================
+END OF TEST CASES
+=================================================
