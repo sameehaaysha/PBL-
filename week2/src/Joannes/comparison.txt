@@ -1,0 +1,65 @@
+CPU SCHEDULING ALGORITHM COMPARISON
+
+1. FCFS (First Come First Served)
+   Type: Non-preemptive
+   Selection: Arrival time
+   Starvation: No
+   Complexity: Easy
+
+2. SJF (Shortest Job First)
+   Type: Non-preemptive
+   Selection: Shortest burst time
+   Starvation: Possible
+   Complexity: Easy
+
+3. SRTF (Shortest Remaining Time First)
+   Type: Preemptive
+   Selection: Shortest remaining time
+   Starvation: Possible
+   Complexity: Moderate
+
+4. Priority Scheduling (Non-preemptive)
+   Type: Non-preemptive
+   Selection: Highest-priority process
+   Starvation: Possible
+   Complexity: Moderate
+
+5. Priority Scheduling (Preemptive)
+   Type: Preemptive
+   Selection: Highest-priority process
+   Starvation: Possible
+   Complexity: Moderate
+
+6. Round Robin (RR)
+   Type: Preemptive
+   Selection: Processes take turns using a fixed time quantum
+   Starvation: Generally no
+   Complexity: Moderate
+
+
+PERFORMANCE COMPARISON
+
+Algorithm                    Average WT    Average TAT    Average RT    CPU Utilization
+FCFS                         __________    ___________    __________    ______________
+SJF                          __________    ___________    __________    ______________
+SRTF                         __________    ___________    __________    ______________
+Priority (Non-preemptive)     __________    ___________    __________    ______________
+Priority (Preemptive)         __________    ___________    __________    ______________
+Round Robin                   __________    ___________    __________    ______________
+
+
+FORMULAS
+
+Waiting Time (WT) = Turnaround Time - Burst Time
+
+Turnaround Time (TAT) = Completion Time - Arrival Time
+
+Response Time (RT) = First Start Time - Arrival Time
+
+Average WT = Total Waiting Time / Number of Processes
+
+Average TAT = Total Turnaround Time / Number of Processes
+
+CPU Utilization = (CPU Busy Time / Total Elapsed Time) * 100
+
+CPU Idle Time = Total Elapsed Time - CPU Busy Time
