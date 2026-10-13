@@ -1,4 +1,4 @@
-#FCFS AND SJF TEST RESULTS
+## FCFS AND SJF TEST RESULTS
 
 ## Test Case 1: CPU Idle Periods
 Processes:
