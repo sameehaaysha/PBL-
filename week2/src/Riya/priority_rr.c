@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "priority_rr.h"
+#include "../sameeha/common.h"
 
 #define MAX 100
 
