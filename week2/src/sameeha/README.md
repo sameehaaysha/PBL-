@@ -1,50 +1,88 @@
-# Process Scheduling Simulator
+# Process Scheduling Simulator – Main Integration Module
 
-## 1. Overview
+## 1. Project Overview
 
-This module is responsible for integrating the process management components of the Process Scheduling Simulator. It provides the main entry point for program execution and coordinates the required process-related operations.
+The Process Scheduling Simulator is a C-based project designed to demonstrate process management and CPU scheduling concepts. This module provides the main program structure and integrates process-related components to support the execution of the simulator.
 
-## 2. Responsibilities
+## 2. Role and Responsibilities
 
-* Integrating process management components.
-* Coordinating program execution through the main function.
-* Managing process-related operations.
-* Connecting shared data structures and function declarations.
-* Supporting the execution and testing of the simulator.
 
-## 3. Files Included
+**Role:** Main Integration and Process Management
 
-| File Name   | Description                                                       |
-| ----------- | ----------------------------------------------------------------- |
-| `Common.h`  | Defines shared data structures and constants used across modules. |
-| `Process.h` | Contains process-related function declarations.                   |
-| `Process.c` | Implements process-related operations.                            |
-| `Main.c`    | Serves as the main entry point and coordinates program execution. |
+Responsibilities:
+
+* Developing and maintaining the main program entry point.
+* Integrating process-related components.
+* Coordinating program execution.
+* Using shared data structures and function declarations.
+* Supporting compilation, testing, and debugging of the module.
+
+## 3. Files and Their Responsibilities
+
+| File Name   | Description                                                      |
+| ----------- | ---------------------------------------------------------------- |
+| `Common.h`  | Defines shared structures and constants used across the project. |
+| `Process.h` | Contains process-related function declarations.                  |
+| `Process.c` | Implements process-related operations.                           |
+| `Main.c`    | Provides the main entry point and coordinates program execution. |
 
 ## 4. Technologies Used
 
 * **Programming Language:** C
 * **Compiler:** GCC
-* **Operating Environment:** Ubuntu/Linux
+* **Operating System:** Ubuntu/Linux
+* **Version Control:** Git and GitHub
 
-## 5. Compilation and Execution
+## 5. Prerequisites
 
-Compile the source files using GCC:
+Before compiling the module, ensure that:
+
+* GCC is installed.
+* All required source and header files are available.
+* The terminal is opened in the project source directory.
+* Any additional source files required by the integration are included.
+
+## 6. Compilation and Execution
+
+Compile the module using GCC:
 
 ```bash
 gcc Main.c Process.c -o simulator
 ```
 
-Run the executable:
+Execute the compiled program:
 
 ```bash
 ./simulator
 ```
 
-## 6. Expected Outcome
 
-The module provides a central entry point for the simulator and supports the integration of process management components with the overall scheduling system.
+## 7. Input and Output
 
-## 7. Conclusion
+The program processes the input required by the implemented process-management functionality and displays the corresponding results.
 
-The integration module contributes to the overall Process Scheduling Simulator by organizing process-related functionality and coordinating program execution.
+The exact input format and output depend on the implementation of the source files.
+
+## 8. Integration Details
+
+The main module acts as the entry point for the program. `Main.c` coordinates the required operations, `Process.c` provides process-related functionality, and the header files supply shared structures and function declarations.
+
+This module is intended to work with the other components of the Process Scheduling Simulator.
+
+## 9. Testing and Validation
+
+The module can be validated by:
+
+* Compiling the source files using GCC.
+* Checking for compilation errors and warnings.
+* Running the generated executable.
+* Verifying process-related operations and displayed results.
+* Checking compatibility with the integrated project modules.
+
+## 10. Expected Outcome
+
+The module provides a central entry point for the simulator and supports the integration of process-management functionality with the overall project.
+
+## 11. Conclusion
+
+The Main Integration Module organizes the process-related components and provides the foundation for executing the Process Scheduling Simulator. It contributes to a modular structure that supports testing, maintenance, and future development.
