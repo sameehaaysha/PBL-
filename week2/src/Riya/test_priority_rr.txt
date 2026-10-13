@@ -1,0 +1,69 @@
+============================================================
+              CPU SCHEDULING ALGORITHM TEST RESULTS
+============================================================
+
+TEST CASE 1: PRIORITY NON-PREEMPTIVE SCHEDULING
+------------------------------------------------------------
+
+Gantt Chart:
+| P1 [0-5] | P2 [5-8] | P3 [8-12] |
+
+Process Performance Metrics:
+------------------------------------------------------------
+PID       Completion Time   Waiting Time   Turnaround Time   Response Time
+P1             5                0                5                0
+P2             8                4                7                4
+P3            12                6               10                6
+------------------------------------------------------------
+
+Average Waiting Time    : 3.33
+Average Turnaround Time : 7.33
+Average Response Time   : 3.33
+
+
+TEST CASE 2: PRIORITY PREEMPTIVE SCHEDULING
+------------------------------------------------------------
+
+Gantt Chart:
+| P1 [0-1] | P2 [1-4] | P1 [4-8] | P3 [8-12] |
+
+Process Performance Metrics:
+------------------------------------------------------------
+PID       Completion Time   Waiting Time   Turnaround Time   Response Time
+P1             8                3                8                0
+P2             4                0                3                0
+P3            12                6               10                6
+------------------------------------------------------------
+
+Average Waiting Time    : 3.00
+Average Turnaround Time : 7.00
+Average Response Time   : 2.00
+CPU Utilization         : 100.00%
+
+
+TEST CASE 3: ROUND ROBIN SCHEDULING
+------------------------------------------------------------
+
+Time Quantum: 2
+
+Gantt Chart:
+| P1 [0-2] | P2 [2-4] | P3 [4-6] | P1 [6-8] |
+| P2 [8-9] | P3 [9-11] | P1 [11-12] |
+
+Process Performance Metrics:
+------------------------------------------------------------
+PID       Completion Time   Waiting Time   Turnaround Time   Response Time
+P1            12                7               12                0
+P2             9                5                8                1
+P3            11                5                9                2
+------------------------------------------------------------
+
+Average Waiting Time    : 5.67
+Average Turnaround Time : 9.67
+Average Response Time   : 1.00
+CPU Utilization         : 100.00%
+
+
+============================================================
+                     END OF TEST RESULTS
+============================================================
