@@ -1,0 +1,153 @@
+PS C:\Users\ASUS\OneDrive\Desktop\pbl\PBL-> wsl
+ayshasameeha@sam:/mnt/c/Users/ASUS/OneDrive/Desktop/pbl/PBL-$ cd "/mnt/c/Users/ASUS/OneDrive/Desktop/pbl/PBL-/week2/src"
+ayshasameeha@sam:/mnt/c/Users/ASUS/OneDrive/Desktop/pbl/PBL-/week2/src$ gcc -I. -Wall -Wextra sameeha/main.c sameeha/process.c shashwath/fcfs_sjf.c Riya/priority_rr.c -o simulator
+Riya/priority_rr.c: In function ‘round_robin’:
+Riya/priority_rr.c:238:21: warning: unused variable ‘j’ [-Wunused-variable]
+  238 |                 int j;
+      |                     ^
+ayshasameeha@sam:/mnt/c/Users/ASUS/OneDrive/Desktop/pbl/PBL-/week2/src$ ./simulator
+====================================
+   PROCESS SCHEDULING SIMULATOR
+====================================
+Enter number of processes (1-100): 2
+
+Enter details for Process 1
+Enter Process ID: 1
+Enter Arrival Time: 2
+Enter Burst Time: 3
+Enter Priority: 2
+
+Enter details for Process 2
+Enter Process ID: 2
+Enter Arrival Time: 3
+Enter Burst Time: 2
+Enter Priority: 1
+
+All process details entered successfully!
+
+========== MENU ==========
+1. FCFS Scheduling
+2. SJF Non-Preemptive
+3. SJF Preemptive (SRTF)
+4. Priority Non-Preemptive
+5. Priority Preemptive
+6. Round Robin
+0. Exit
+Enter your choice: 1
+
+Gantt Chart:
+| Idle | P1 | P2 |
+0     2     5     7
+
+========== MENU ==========
+1. FCFS Scheduling
+2. SJF Non-Preemptive
+3. SJF Preemptive (SRTF)
+4. Priority Non-Preemptive
+5. Priority Preemptive
+6. Round Robin
+0. Exit
+Enter your choice: 2
+
+Gantt Chart:
+| Idle | P1 | P2 |
+0     2     5     7
+
+========== MENU ==========
+1. FCFS Scheduling
+2. SJF Non-Preemptive
+3. SJF Preemptive (SRTF)
+4. Priority Non-Preemptive
+5. Priority Preemptive
+6. Round Robin
+0. Exit
+Enter your choice: 3
+
+Gantt Chart:
+| Idle | P1 | P2 |
+0     2     5     7
+
+========== MENU ==========
+1. FCFS Scheduling
+2. SJF Non-Preemptive
+3. SJF Preemptive (SRTF)
+4. Priority Non-Preemptive
+5. Priority Preemptive
+6. Round Robin
+0. Exit
+Enter your choice: 4
+
+=== Priority Non-Preemptive ===
+Gantt Chart:
+| IDLE [0-1] | IDLE [1-2] | P1 [2-5] | P2 [5-7] |
+
+PID     CT      WT      TAT     RT
+P1      5       0       3       0
+P2      7       2       4       2
+
+Average Waiting Time: 1.00
+Average Turnaround Time: 3.50
+Average Response Time: 1.00
+CPU Utilization: 71.43%
+
+========== MENU ==========
+1. FCFS Scheduling
+2. SJF Non-Preemptive
+3. SJF Preemptive (SRTF)
+4. Priority Non-Preemptive
+5. Priority Preemptive
+6. Round Robin
+0. Exit
+Enter your choice: 5
+
+=== Priority Preemptive ===
+Gantt Chart:
+| IDLE [0-2] | P1 [2-3] | P2 [3-5] | P1 [5-7] |
+
+PID     CT      WT      TAT     RT
+P1      7       2       5       0
+P2      5       0       2       0
+
+Average Waiting Time: 1.00
+Average Turnaround Time: 3.50
+Average Response Time: 0.00
+CPU Utilization: 71.43%
+
+========== MENU ==========
+1. FCFS Scheduling
+2. SJF Non-Preemptive
+3. SJF Preemptive (SRTF)
+4. Priority Non-Preemptive
+5. Priority Preemptive
+6. Round Robin
+0. Exit
+Enter your choice: 6
+Enter time quantum: 2
+
+=== Round Robin (Quantum = 2) ===
+Gantt Chart:
+| P1 [2-4] | P2 [4-6] | P1 [6-7] |
+
+PID     CT      WT      TAT     RT
+P1      7       2       5       0
+P2      6       1       3       1
+
+Average Waiting Time: 1.50
+Average Turnaround Time: 4.00
+Average Response Time: 0.50
+CPU Utilization: 71.43%
+
+========== MENU ==========
+1. FCFS Scheduling
+2. SJF Non-Preemptive
+3. SJF Preemptive (SRTF)
+4. Priority Non-Preemptive
+5. Priority Preemptive
+6. Round Robin
+0. Exit
+Enter your choice: 0
+Exiting simulator.
+ayshasameeha@sam:/mnt/c/Users/ASUS/OneDrive/Desktop/pbl/PBL-/week2/src$ 
+
+
+
