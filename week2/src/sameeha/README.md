@@ -55,7 +55,6 @@ Execute the compiled program:
 ./simulator
 ```
 
-**Note:** If the simulator depends on additional scheduling algorithm source files, include those files in the compilation command.
 
 ## 7. Input and Output
 
