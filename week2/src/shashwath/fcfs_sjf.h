@@ -1,8 +1,7 @@
-
 #ifndef FCFS_SJF_H
 #define FCFS_SJF_H
 
-#include "common.h"
+#include "../sameeha/common.h"
 
 void run_fcfs(Process processes[], int n,
               Segment gantt[], int *segment_count);
