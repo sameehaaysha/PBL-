@@ -1,0 +1,157 @@
+PROCESS AND RESOURCE MANAGEMENT
+TEST CASES
+========================================
+
+TC01: Initialize Processes
+----------------------------------------
+Setup:
+Create three processes.
+
+Expected Result:
+Process IDs should be 0, 1, and 2.
+Process names should be P0, P1, and P2.
+
+
+TC02: Initialize Resources
+----------------------------------------
+Setup:
+Create two resource types.
+
+Expected Result:
+Resource names should be R0 and R1.
+
+
+TC03: Set Total Resources
+----------------------------------------
+Input:
+R0 = 4
+R1 = 3
+
+Expected Result:
+Both resource totals should be accepted.
+
+
+TC04: Set Resource Allocation
+----------------------------------------
+Input:
+P0 = [1, 0]
+P1 = [0, 1]
+P2 = [1, 1]
+
+Expected Result:
+All allocations should be accepted.
+Total allocated R0 = 2.
+Total allocated R1 = 2.
+
+
+TC05: Set Maximum Requirements
+----------------------------------------
+Input:
+P0 = [2, 1]
+P1 = [1, 2]
+P2 = [2, 2]
+
+Expected Result:
+All maximum requirements should be accepted.
+
+
+TC06: Calculate Need Matrix
+----------------------------------------
+Formula:
+Need = Maximum - Allocation
+
+Expected Result:
+P0 Need = [1, 1]
+P1 Need = [1, 1]
+P2 Need = [1, 1]
+
+
+TC07: Calculate Available Resources
+----------------------------------------
+Formula:
+Available = Total - Allocated
+
+Expected Result:
+R0 Available = 4 - 2 = 2.
+R1 Available = 3 - 2 = 1.
+
+Available Resources = [2, 1].
+
+
+TC08: Validate a Valid Resource Request
+----------------------------------------
+Process:
+P0
+
+Request:
+[1, 0]
+
+Expected Result:
+The request should be accepted by the validation function
+because it does not exceed the process's need or the
+currently available resources.
+
+
+TC09: Request Exceeds Remaining Need
+----------------------------------------
+Process:
+P0
+
+Request:
+[2, 0]
+
+Expected Result:
+The request should be rejected because P0 needs only
+one additional instance of R0.
+
+
+TC10: Request Exceeds Available Resources
+----------------------------------------
+Process:
+P0
+
+Request:
+[0, 2]
+
+Expected Result:
+The request should be rejected because only one
+instance of R1 is available.
+
+
+TC11: Invalid Process ID
+----------------------------------------
+Process ID:
+5
+
+Request:
+[0, 0]
+
+Expected Result:
+The request should be rejected because process 5
+does not exist in the configured system.
+
+
+TC12: Display System Information
+----------------------------------------
+Action:
+Display process and resource information.
+
+Expected Result:
+The program should display:
+- Process information
+- Resource information
+- Allocation matrix
+- Maximum matrix
+- Need matrix
+- Available resources
+
+
+========================================
+OVERALL EXPECTED RESULT
+========================================
+
+All assertions should pass without errors.
+
+Final message:
+
+All process and resource tests passed!

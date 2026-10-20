@@ -3,8 +3,6 @@
 
 #include "../Sameeha/common.h"
 
-/* Process and resource management functions */
-
 void initialize_processes(SystemState *system);
 void initialize_resources(SystemState *system);
 
