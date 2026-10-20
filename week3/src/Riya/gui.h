@@ -1,11 +1,11 @@
 #ifndef GUI_H
 #define GUI_H
-#include "../Sameeha/common.h"
+#include "../sameeha/common.h"
 
 #include <gtk/gtk.h>
 
 /* Initialize and display the graphical interface */
-void create_gui(void);
+void create_gui(SystemState *system);
 
 
 
