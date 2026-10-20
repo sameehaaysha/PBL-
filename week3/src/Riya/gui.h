@@ -1,5 +1,6 @@
 #ifndef GUI_H
 #define GUI_H
+#include "../Sameeha/common.h"
 
 #include <gtk/gtk.h>
 

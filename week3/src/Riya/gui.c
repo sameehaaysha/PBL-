@@ -1,5 +1,6 @@
 #include <gtk/gtk.h>
 #include "gui.h"
+#include "../Sameeha/common.h"
 
 /* Dashboard labels */
 static GtkWidget *process_count_label;
