@@ -36,7 +36,6 @@ typedef struct {
 } ResourceRequest;
 
 /* Global system information */
-
 typedef struct {
     int process_count;
     int resource_count;
@@ -49,6 +48,18 @@ typedef struct {
     int allocation[MAX_PROCESSES][MAX_RESOURCES];
     int maximum[MAX_PROCESSES][MAX_RESOURCES];
     int need[MAX_PROCESSES][MAX_RESOURCES];
+
+    /*
+     * CURRENT OUTSTANDING REQUEST MATRIX
+     *
+     * request[i][j] represents the number of instances
+     * of resource j that process i is currently waiting
+     * to obtain.
+     *
+     * This is different from need[i][j], which represents
+     * the process's remaining maximum requirement.
+     */
+    int request[MAX_PROCESSES][MAX_RESOURCES];
 
     int safe_sequence[MAX_PROCESSES];
     int safe_sequence_length;
