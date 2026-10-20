@@ -1,0 +1,136 @@
+PROCESS AND RESOURCE MANAGEMENT
+TEST CASES
+========================================
+
+TC01: Process Initialization
+----------------------------------------
+Input: 3 processes
+
+Expected Result:
+Process P0, P1, and P2 should be initialized successfully.
+
+
+TC02: Resource Initialization
+----------------------------------------
+Input: 2 resource types
+
+Expected Result:
+Resources R0 and R1 should be initialized successfully.
+
+
+TC03: Total Resource Configuration
+----------------------------------------
+Input:
+R0 = 4
+R1 = 3
+
+Expected Result:
+Total resources should be set successfully.
+
+
+TC04: Resource Allocation
+----------------------------------------
+Input:
+P0 = [1, 0]
+P1 = [0, 1]
+P2 = [1, 1]
+
+Expected Result:
+Allocation matrix should be updated correctly.
+
+
+TC05: Maximum Resource Requirements
+----------------------------------------
+Input:
+P0 = [2, 1]
+P1 = [1, 2]
+P2 = [2, 2]
+
+Expected Result:
+Maximum matrix should be updated correctly.
+
+
+TC06: Need Matrix Calculation
+----------------------------------------
+Formula:
+Need = Maximum - Allocation
+
+Expected Result:
+P0 Need = [1, 1]
+P1 Need = [1, 1]
+P2 Need = [1, 1]
+
+
+TC07: Available Resource Calculation
+----------------------------------------
+Formula:
+Available = Total - Allocated
+
+Expected Result:
+R0 Available = 2
+R1 Available = 1
+
+
+TC08: Valid Resource Request
+----------------------------------------
+Process: P0
+Request: [1, 0]
+
+Expected Result:
+Request validation should return true.
+
+
+TC09: Request Exceeds Process Need
+----------------------------------------
+Process: P0
+Request: [2, 0]
+
+Expected Result:
+Request validation should return false.
+
+
+TC10: Request Exceeds Available Resources
+----------------------------------------
+Process: P0
+Request: [0, 2]
+
+Expected Result:
+Request validation should return false.
+
+
+TC11: Invalid Process ID
+----------------------------------------
+Process ID: 5
+Request: [0, 0]
+
+Expected Result:
+Request validation should return false.
+
+
+TC12: Display System Information
+----------------------------------------
+Expected Result:
+The program should display:
+- Process information
+- Resource information
+- Allocation matrix
+- Maximum matrix
+- Need matrix
+- Available resources
+
+
+========================================
+ACTUAL TEST RESULT
+========================================
+
+Process Information: Displayed successfully.
+Resource Information: Displayed successfully.
+Allocation Matrix: Correct.
+Maximum Matrix: Correct.
+Need Matrix: Correct.
+Available Resources: Correct.
+
+Final Output:
+All process and resource tests passed!
+
+Overall Status: PASS
