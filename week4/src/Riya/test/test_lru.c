@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "lru.h"
+#include "lru.h"    
 
 int main(void)
 {
@@ -13,7 +13,7 @@ int main(void)
         printf("Simulation failed: invalid input.\n");
         return 1;
     }
-
+    
     printf("Total page hits: %d\n", result.total_hits);
     printf("Total page faults: %d\n", result.total_faults);
     printf("Hit ratio: %.2f\n", result.hit_ratio);
