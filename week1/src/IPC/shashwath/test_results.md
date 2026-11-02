@@ -2,107 +2,280 @@
 
 ## 1. OBJECTIVE
 
-To test the compilation and functionality of the Message Queue module, Signals module, and Logger implementation using GCC in a WSL environment.
+The objective of this testing phase is to verify the compilation and functionality of the following Inter-Process Communication (IPC) components implemented in C:
+
+- POSIX Message Queues
+- Signal Handling
+- Logger and Event Recording
+
+The tests evaluate whether messages can be transmitted and received, signals can be delivered and handled, and logging events can be recorded correctly.
 
 ## 2. TEST ENVIRONMENT
 
-- Operating environment: Ubuntu on WSL
-- Programming language: C
-- Compiler: GCC
-- Message Queue mechanism: POSIX Message Queues
-- Signal mechanism: SIGUSR1
-- Logging mechanism: POSIX Message Queue and file-based logging
+| Parameter | Details |
+|---|---|
+| Programming Language | C |
+| Compiler | GCC |
+| Development Environment | Ubuntu on WSL |
+| Message Queue Mechanism | POSIX Message Queues |
+| Signal Mechanism | POSIX Signals (`SIGUSR1`, `SIGUSR2`) |
+| Logging Mechanism | POSIX Message Queue and file-based logging |
+| Compiler Flags | `-Wall -Wextra -std=c11` |
+| Additional Linker Flag | `-lrt` where required |
 
 ## 3. TEST CASES AND RESULTS
 
-### TEST CASE 1: MESSAGE QUEUE COMPILATION
+### TEST CASE 1: MESSAGE QUEUE MODULE COMPILATION
 
-**Objective:** Verify that the Message Queue module compiles successfully.
+**Objective:** Verify that the Message Queue module compiles without errors or warnings.
 
-**Result:** PASS
+**Command:**
 
-**Evidence:** The file `/tmp/message_queue.o` was generated without compiler errors or warnings.
+```bash
+gcc -Wall -Wextra -std=c11 -c IPC/shashwath/message_queue.c -o /tmp/message_queue.o
+```
 
-### TEST CASE 2: SIGNALS COMPILATION
+**Expected Result:** The source file should compile successfully.
+
+**Actual Result:** Compilation completed successfully, and the object file was generated.
+
+**Status: PASS**
+
+### TEST CASE 2: SIGNALS MODULE COMPILATION
 
 **Objective:** Verify that the Signals module compiles successfully.
 
-**Result:** PASS
+**Command:**
 
-**Evidence:** The file `/tmp/signals.o` was generated without compiler errors or warnings.
+```bash
+gcc -Wall -Wextra -std=c11 -c IPC/shashwath/signals.c -o /tmp/signals.o
+```
+
+**Expected Result:** The source file should compile without errors or warnings.
+
+**Actual Result:** Compilation completed successfully, and the object file was generated.
+
+**Status: PASS**
 
 ### TEST CASE 3: LOGGER COMPILATION
 
-**Objective:** Verify that the Logger executable can be generated.
+**Objective:** Verify that the Logger program can be compiled into an executable.
 
-**Result:** PASS
+**Command:**
 
-**Evidence:** The executable `/tmp/logger` was created successfully.
+```bash
+gcc -Wall -Wextra -std=c11 logger.c -o logger -lrt
+```
 
-### TEST CASE 4: MESSAGE QUEUE SEND AND RECEIVE
+**Expected Result:** The compiler should generate the Logger executable successfully.
 
-**Objective:** Verify that a message can be transmitted and received through a POSIX message queue.
+**Actual Result:** The Logger executable was generated and used in subsequent runtime tests.
 
-**Test message:** `HELLO_FROM_TEST`
+**Status: PASS**
 
-**Actual result:** The sent and received messages matched exactly.
+### TEST CASE 4: MESSAGE QUEUE SEND OPERATION
 
-**Result:** PASS
+**Objective:** Verify that a message can be sent through a POSIX Message Queue.
 
-### TEST CASE 5: SIGNAL HANDLING
+**Procedure:**
+1. Initialize the message queue.
+2. Open the queue for sending.
+3. Send a test message.
+4. Check the operation result.
 
-**Objective:** Verify that the signal handler can detect SIGUSR1.
+**Expected Result:** The message should be transmitted successfully.
 
-**Actual result:** The test program successfully registered its signal handler, sent SIGUSR1 to itself, and detected the received signal.
+**Actual Result:** The integration test reported successful message transmission.
 
-**Result:** PASS
+**Status: PASS**
 
-**Limitation:** This test verifies signal handling within the same process. Inter-process signal delivery remains to be tested.
+### TEST CASE 5: MESSAGE QUEUE RECEIVE OPERATION
 
-### TEST CASE 6: LOGGER EVENT PROCESSING
+**Objective:** Verify that a message transmitted through the queue can be received successfully.
 
-**Objective:** Verify that the Logger receives and processes informational, error, and shutdown events.
+**Procedure:**
+1. Open the queue for receiving.
+2. Receive the transmitted message.
+3. Verify the receive operation.
 
-**Actual result:** The Logger processed all three events and terminated after receiving the expected shutdown message.
+**Expected Result:** The receiver should obtain the transmitted message successfully.
 
-**Result:** PASS
+**Actual Result:** The integration test reported successful message reception.
 
-### TEST CASE 7: EXECUTION LOG GENERATION
+**Status: PASS**
 
-**Objective:** Verify that ordinary events are written to the execution log with timestamps and severity labels.
+### TEST CASE 6: SIGNAL HANDLER INSTALLATION
 
-**Actual result:** The test event was successfully recorded in `logs/execution.log`.
+**Objective:** Verify that the program can install a signal handler.
 
-**Result:** PASS
+**Procedure:**
+1. Configure the signal handler using `sigaction()`.
+2. Register the handler for the required signal.
+3. Verify the handler installation result.
 
-### TEST CASE 8: ERROR LOG GENERATION
+**Expected Result:** The signal handler should be installed successfully.
 
-**Objective:** Verify that error events are recorded separately from ordinary events.
+**Actual Result:** The integration test reported successful signal handler installation.
 
-**Actual result:** The simulated error was successfully recorded in `logs/error.log`.
+**Status: PASS**
 
-**Result:** PASS
+### TEST CASE 7: INTER-PROCESS SIGNAL TRANSMISSION
 
-### TEST CASE 9: LOGGER SHUTDOWN
+**Objective:** Verify that one process can send a signal to another process.
 
-**Objective:** Verify that the Logger stops when it receives the designated shutdown message.
+**Procedure:**
+1. Start a receiver process.
+2. Configure the receiver to handle `SIGUSR1`.
+3. Send `SIGUSR1` from a separate sender process using `kill()`.
+4. Verify that the receiver detects the signal.
 
-**Actual result:** The terminal displayed `Logger stopped.` and the process exited successfully.
+**Expected Result:** The receiving process should detect the signal sent by the separate process.
 
-**Result:** PASS
+**Actual Result:** The sender reported successful signal transmission, and the receiver reported receiving `SIGUSR1`.
 
-## 4. TEST SUMMARY
+**Observed Output:**
 
-The Message Queue, Signals, and Logger modules compiled successfully.
+```text
+Sent SIGUSR1 to process 8746
+RESULT: PASS
+Received SIGUSR1 from another process.
+RESULT: PASS
+```
 
-The Message Queue send-and-receive test passed, and the Signals test successfully detected SIGUSR1 within the same process.
+The process ID shown above is from the recorded test run.
 
-The Logger successfully processed test events, wrote informational and error messages to their respective log files, and terminated cleanly.
+**Status: PASS**
 
-Separate-process IPC communication and integration with the common UI require additional testing.
+### TEST CASE 8: LOGGER EVENT PROCESSING
 
-## 5. CONCLUSION
+**Objective:** Verify that the Logger receives and processes events delivered through the logging message queue.
 
-The initial compilation and runtime tests demonstrate that the individual Message Queue, Signals, and Logger components perform their tested operations successfully.
+**Procedure:**
+1. Start the Logger process.
+2. Send test events through the logging queue.
+3. Verify that the Logger processes the events.
 
-Further testing is required to verify inter-process communication, integration between the IPC modules and Logger, and operation through the common user interface.
+**Expected Result:** The Logger should process the submitted events.
+
+**Actual Result:** The recorded integration test showed that the Logger processed Message Queue and signal-related events.
+
+**Status: PASS**
+
+### TEST CASE 9: EXECUTION LOG GENERATION
+
+**Objective:** Verify that ordinary execution events are written to the execution log.
+
+**Expected Result:** Informational and execution-related events should be recorded in `logs/execution.log`.
+
+**Actual Result:** The generated execution log contained entries for tested Message Queue operations, signal-related operations, and Logger activity.
+
+**Status: PASS**
+
+### TEST CASE 10: ERROR LOG GENERATION
+
+**Objective:** Verify that error events are recorded separately from ordinary execution events.
+
+**Expected Result:** Error events should be written to `logs/error.log`.
+
+**Actual Result:** In the dedicated Logger test, the simulated error event was recorded in the error log.
+
+**Status: PASS**
+
+### TEST CASE 11: LOGGER SHUTDOWN
+
+**Objective:** Verify that the Logger terminates after receiving the designated shutdown message.
+
+**Procedure:**
+1. Start the Logger process.
+2. Send the expected shutdown event.
+3. Verify that the Logger exits.
+
+**Expected Result:** The Logger should recognize the shutdown event and terminate cleanly.
+
+**Actual Result:** The dedicated Logger test and the combined integration test reported successful shutdown handling.
+
+**Status: PASS**
+
+## 4. COMBINED INTEGRATION TEST
+
+A combined test program was compiled using the Message Queue and Signals modules.
+
+**Compilation command:**
+
+```bash
+gcc -Wall -Wextra -std=c11 /tmp/test_real_ipc.c IPC/shashwath/message_queue.c IPC/shashwath/signals.c -o /tmp/test_real_ipc -lrt
+```
+
+The Logger was started separately before executing the integration test.
+
+**Recorded Test Output:**
+
+```text
+=== MESSAGE QUEUE INTEGRATION TEST ===
+MESSAGE QUEUE SEND: PASS
+MESSAGE QUEUE RECEIVE: PASS
+
+=== SIGNALS INTEGRATION TEST ===
+SIGNAL HANDLER INSTALLATION: PASS
+SIGNAL SEND: PASS
+SIGNAL RECEIVE: PASS
+
+=== LOGGER SHUTDOWN REQUEST ===
+LOGGER SHUTDOWN REQUEST: PASS
+
+OVERALL RESULT: PASS
+```
+
+**Interpretation:**
+
+- Message Queue send and receive operations completed successfully.
+- Signal handler installation succeeded.
+- Signal sending and receiving tests passed.
+- The Logger processed the shutdown request successfully.
+- The integration test reported an overall passing result.
+
+**Overall Integration Test Status: PASS**
+
+## 5. TEST SUMMARY
+
+| Test ID | Component | Test Description | Result |
+|---|---|---|---|
+| TC-01 | Message Queue | Compilation | PASS |
+| TC-02 | Signals | Compilation | PASS |
+| TC-03 | Logger | Compilation | PASS |
+| TC-04 | Message Queue | Message transmission | PASS |
+| TC-05 | Message Queue | Message reception | PASS |
+| TC-06 | Signals | Handler installation | PASS |
+| TC-07 | Signals | Inter-process signal delivery | PASS |
+| TC-08 | Logger | Event processing | PASS |
+| TC-09 | Logger | Execution log generation | PASS |
+| TC-10 | Logger | Error log generation | PASS |
+| TC-11 | Logger | Shutdown handling | PASS |
+| TC-12 | Integration | Combined Message Queue, Signals, and Logger testing | PASS |
+
+**Total listed test cases: 12**
+
+**Recorded result: 12 PASS**
+
+*Note: The total counts the individual checks listed above, not 12 independently executed test programs. The results reflect the recorded compilation and runtime tests.*
+
+## 6. LIMITATIONS AND PENDING VERIFICATION
+
+Although the individual modules and recorded integration tests passed, the following items require separate verification:
+
+1. **Full application integration:** The common UI and Core components must be tested together with the IPC modules.
+2. **End-to-end application behaviour:** Commands entered through the UI should be checked to ensure that they reach the Core and produce the expected responses.
+3. **Error-handling coverage:** Additional tests should verify behaviour when queues cannot be opened, messages cannot be transmitted, or a process terminates unexpectedly.
+4. **Repeated execution:** Additional runs can verify behaviour across multiple consecutive executions and shutdown cycles.
+
+The combined integration test does not, by itself, establish that the entire application is fully integrated.
+
+## 7. CONCLUSION
+
+The recorded tests demonstrate successful compilation of the Message Queue, Signals, and Logger modules. Runtime testing verified Message Queue transmission and reception, signal handling between separate processes, logging operations, and Logger shutdown behaviour.
+
+The combined integration test reported an overall passing result. The execution and error logs also provided evidence that tested events were recorded through the logging mechanism.
+
+The next stage is to verify these components within the complete application, including the common UI and Core workflow.
+
+**Final Status: INDIVIDUAL MODULE TESTS AND RECORDED IPC INTEGRATION TESTS PASSED. FULL APPLICATION INTEGRATION REQUIRES SEPARATE VERIFICATION.**
