@@ -1,51 +1,48 @@
 #include <stdio.h>
+#include "queue.h"
 
-#define QUEUE_LIMIT 100
+#define QUEUE_SIZE 100
 
-int queueData[QUEUE_LIMIT];
-int frontIndex = 0;
-int rearIndex = -1;
-int itemCount = 0;
+static int queue[QUEUE_SIZE];
+static int front = 0;
+static int rear = -1;
+static int count = 0;
 
 void enqueue(int value)
 {
-    if (itemCount == QUEUE_LIMIT)
+    if (count == QUEUE_SIZE)
     {
-        printf("Error: Queue is full\n");
+        printf("Queue is full!\n");
         return;
     }
 
-    rearIndex = (rearIndex + 1) % QUEUE_LIMIT;
-    queueData[rearIndex] = value;
-    itemCount++;
-
-    printf("Enqueued %d\n", value);
+    rear = (rear + 1) % QUEUE_SIZE;
+    queue[rear] = value;
+    count++;
 }
 
-int dequeue()
+int dequeue(void)
 {
-    int value;
-
-    if (itemCount == 0)
+    if (count == 0)
     {
-        printf("Error: Queue is empty\n");
+        printf("Queue is empty!\n");
         return -1;
     }
 
-    value = queueData[frontIndex];
-    frontIndex = (frontIndex + 1) % QUEUE_LIMIT;
-    itemCount--;
+    int value = queue[front];
+    front = (front + 1) % QUEUE_SIZE;
+    count--;
 
     return value;
 }
 
-int queue_peek()
+int queuePeek(void)
 {
-    if (itemCount == 0)
+    if (count == 0)
     {
-        printf("Queue is empty\n");
+        printf("Queue is empty!\n");
         return -1;
     }
 
-    return queueData[frontIndex];
+    return queue[front];
 }

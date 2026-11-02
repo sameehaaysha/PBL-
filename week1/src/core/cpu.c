@@ -1,60 +1,45 @@
 #include <stdio.h>
 #include <string.h>
-
-typedef struct {
-    int acc;
-    int pc;
-    int active;
-} Processor;
+#include "cpu.h"
 
 void execute_instruction(Processor *cpu, char instruction[])
 {
-    char command[10];
-    int number = 0;
+    int value;
 
-    sscanf(instruction, "%s %d", command, &number);
-
-    if (strcmp(command, "LOAD") == 0)
+    if (sscanf(instruction, "LOAD %d", &value) == 1)
     {
-        cpu->acc = number;
-        printf("ACC = %d\n", cpu->acc);
+        cpu->acc = value;
+        printf("Accumulator loaded with %d\n", value);
     }
-    else if (strcmp(command, "ADD") == 0)
+    else if (sscanf(instruction, "ADD %d", &value) == 1)
     {
-        cpu->acc = cpu->acc + number;
-        printf("ACC = %d\n", cpu->acc);
+        cpu->acc += value;
+        printf("Addition result: %d\n", cpu->acc);
     }
-    else if (strcmp(command, "SUB") == 0)
+    else if (sscanf(instruction, "SUB %d", &value) == 1)
     {
-        cpu->acc = cpu->acc - number;
-        printf("ACC = %d\n", cpu->acc);
+        cpu->acc -= value;
+        printf("Subtraction result: %d\n", cpu->acc);
     }
-    else if (strcmp(command, "MUL") == 0)
+    else if (sscanf(instruction, "MUL %d", &value) == 1)
     {
-        cpu->acc = cpu->acc * number;
-        printf("ACC = %d\n", cpu->acc);
+        cpu->acc *= value;
+        printf("Multiplication result: %d\n", cpu->acc);
     }
-    else if (strcmp(command, "DIV") == 0)
+    else if (sscanf(instruction, "DIV %d", &value) == 1)
     {
-        if (number == 0)
+        if (value != 0)
         {
-            printf("Error: Cannot divide by zero\n");
+            cpu->acc /= value;
+            printf("Division result: %d\n", cpu->acc);
         }
         else
         {
-            cpu->acc = cpu->acc / number;
-            printf("ACC = %d\n", cpu->acc);
+            printf("Error: Division by zero!\n");
         }
-    }
-    else if (strcmp(command, "HALT") == 0)
-    {
-        cpu->active = 0;
-        printf("CPU stopped\n");
     }
     else
     {
-        printf("Invalid instruction\n");
+        printf("Invalid instruction!\n");
     }
-
-    cpu->pc++;
 }

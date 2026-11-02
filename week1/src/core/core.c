@@ -1,109 +1,102 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
-typedef struct {
-    int acc;
-    int pc;
-    int active;
-} Processor;
+#include "../IPC/common.h"
 
+#include "cpu.h"
+#include "memory.h"
+#include "stack.h"
+#include "queue.h"
 
-void execute_instruction(Processor *cpu, char instruction[]);
+#define MAX_INPUT 256
 
-
-void writeMemory(int location, int data);
-int readMemory(int location);
-
-
-void push(int number);
-int pop(void);
-int peek(void);
-
-
-void enqueue(int value);
-int dequeue(void);
-int queue_peek(void);
-
-int main()
+int main(void)
 {
     Processor cpu = {0, 0, 1};
+    char input[MAX_INPUT];
 
-    char instruction[100];
-    char command[20];
-
-    int value;
-    int address;
-    int result;
+    printf("\n=================================\n");
+    printf("       CORE PROCESS STARTED\n");
+    printf("=================================\n");
 
     while (cpu.active)
     {
         printf("\nEnter instruction: ");
-        fgets(instruction, sizeof(instruction), stdin);
 
-        instruction[strcspn(instruction, "\n")] = '\0';
+        if (fgets(input, sizeof(input), stdin) == NULL)
+            break;
 
-        sscanf(instruction, "%s", command);
+        input[strcspn(input, "\n")] = '\0';
 
-        if (strcmp(command, "STORE") == 0)
+        if (strcmp(input, "HALT") == 0)
         {
-            sscanf(instruction, "%s %d %d", command, &address, &value);
-            writeMemory(address, value);
+            cpu.active = 0;
+            printf("Core stopped.\n");
         }
-        else if (strcmp(command, "READ") == 0)
+        else if (strncmp(input, "STORE ", 6) == 0)
         {
-            sscanf(instruction, "%s %d", command, &address);
+            int address;
 
-            result = readMemory(address);
+            if (sscanf(input + 6, "%d", &address) == 1)
+            {
+                memoryWrite(address, cpu.acc);
+                printf("Value stored successfully.\n");
+            }
+        }
+        else if (strncmp(input, "READ ", 5) == 0)
+        {
+            int address;
 
-            if (result != -1)
-                printf("Memory[%d] = %d\n", address, result);
+            if (sscanf(input + 5, "%d", &address) == 1)
+            {
+                cpu.acc = memoryRead(address);
+                printf("Accumulator = %d\n", cpu.acc);
+            }
         }
-        else if (strcmp(command, "PUSH") == 0)
+        else if (strncmp(input, "PUSH ", 5) == 0)
         {
-            sscanf(instruction, "%s %d", command, &value);
-            push(value);
-        }
-        else if (strcmp(command, "POP") == 0)
-        {
-            result = pop();
+            int value;
 
-            if (result != -1)
-                printf("Popped %d\n", result);
+            if (sscanf(input + 5, "%d", &value) == 1)
+            {
+                push(value);
+                printf("Value pushed.\n");
+            }
         }
-        else if (strcmp(command, "PEEK") == 0)
+        else if (strcmp(input, "POP") == 0)
         {
-            result = peek();
+            printf("Popped value = %d\n", pop());
+        }
+        else if (strcmp(input, "PEEK") == 0)
+        {
+            printf("Top value = %d\n", peek());
+        }
+        else if (strncmp(input, "ENQUEUE ", 8) == 0)
+        {
+            int value;
 
-            if (result != -1)
-                printf("Top = %d\n", result);
+            if (sscanf(input + 8, "%d", &value) == 1)
+            {
+                enqueue(value);
+                printf("Value enqueued.\n");
+            }
         }
-        else if (strcmp(command, "ENQUEUE") == 0)
+        else if (strcmp(input, "DEQUEUE") == 0)
         {
-            sscanf(instruction, "%s %d", command, &value);
-            enqueue(value);
+            printf("Dequeued value = %d\n", dequeue());
         }
-        else if (strcmp(command, "DEQUEUE") == 0)
+        else if (strcmp(input, "QPEEK") == 0)
         {
-            result = dequeue();
-
-            if (result != -1)
-                printf("Dequeued %d\n", result);
-        }
-        else if (strcmp(command, "QPEEK") == 0)
-        {
-            result = queue_peek();
-
-            if (result != -1)
-                printf("Front = %d\n", result);
+            printf("Front value = %d\n", queuePeek());
         }
         else
         {
-            execute_instruction(&cpu, instruction);
+            execute_instruction(&cpu, input);
         }
-    }
 
-    printf("\nFinal ACC = %d\n", cpu.acc);
-    printf("Final PC = %d\n", cpu.pc);
+        cpu.pc++;
+    }
 
     return 0;
 }
