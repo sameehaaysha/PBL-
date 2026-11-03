@@ -12,8 +12,8 @@ The project focuses on implementing and understanding important Operating System
 |---|---|---|
 | Riya Hency Dsa | 25191140 | Team Member |
 | Joannes Harry | 25191122 | Team Member |
-| Shashwath Shetty | 25191148 | Team Lead |
-| Sameeha | 25191108 | Team Member |
+| Shashwath Shetty | 25191148 |Team Member  |
+| Sameeha | 25191108 | Team Lead |
 
 ## Project Modules
 
