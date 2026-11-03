@@ -2,7 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "../IPC/common.h"
+#include "../IPC/ipc.h"
+#include "../logger.h"
 
 #include "cpu.h"
 #include "memory.h"
@@ -10,30 +11,50 @@
 #include "queue.h"
 
 #define MAX_INPUT 256
-
 int main(void)
 {
     Processor cpu = {0, 0, 1};
-    char input[MAX_INPUT];
+    char input[MAX_TEXT];
 
     printf("\n=================================\n");
     printf("       CORE PROCESS STARTED\n");
     printf("=================================\n");
 
+    /* Initialize Message Queue */
+    if (ipc_initialize(IPC_MESSAGE_QUEUE) == -1)
+    {
+        printf("Core: Failed to initialize IPC.\n");
+        return 1;
+    }
+
+    printf("Core: Waiting for commands from UI...\n");
+
     while (cpu.active)
     {
-        printf("\nEnter instruction: ");
+        printf("\nWaiting for UI command...\n");
 
-        if (fgets(input, sizeof(input), stdin) == NULL)
-            break;
-
-        input[strcspn(input, "\n")] = '\0';
-
-        if (strcmp(input, "HALT") == 0)
+        if (ipc_receive(IPC_MESSAGE_QUEUE, input, sizeof(input)) == -1)
         {
-            cpu.active = 0;
-            printf("Core stopped.\n");
+            printf("Core: Failed to receive command.\n");
+            break;
         }
+
+        printf("Received: %s\n", input);
+        logger_send_event(MSG_RESULT, input);
+        
+
+       if (strcmp(input, "EXIT") == 0 ||
+    strcmp(input, "HALT") == 0)
+{
+    logger_send_event(MSG_RESULT, "Core stopped.");
+
+    logger_send_event(MSG_SHUTDOWN, "LOGGER_SHUTDOWN");
+
+    cpu.active = 0;
+
+    printf("Core stopped.\n");
+    break;
+}
         else if (strncmp(input, "STORE ", 6) == 0)
         {
             int address;
@@ -97,6 +118,8 @@ int main(void)
 
         cpu.pc++;
     }
+
+    ipc_cleanup(IPC_MESSAGE_QUEUE);
 
     return 0;
 }

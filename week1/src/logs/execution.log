@@ -1,0 +1,31 @@
+[2026-11-03 15:40:31] [INFO] Message Queue: message received successfully
+[2026-11-03 15:40:31] [INFO] PUSH 25
+[2026-11-03 15:40:33] [INFO] Message Queue: message received successfully
+[2026-11-03 15:40:33] [INFO] PEEK
+[2026-11-03 15:40:35] [INFO] Message Queue: message received successfully
+[2026-11-03 15:40:35] [INFO] POP
+[2026-11-03 15:40:37] [INFO] EXIT
+[2026-11-03 15:40:37] [INFO] Core stopped.
+[2026-11-03 15:40:37] [SHUTDOWN] LOGGER_SHUTDOWN
+[2026-11-03 15:47:40] [INFO] Message Queue: queue descriptor closed
+[2026-11-03 15:48:20] [INFO] Message Queue: message received successfully
+[2026-11-03 15:48:20] [INFO] PUSH 25
+[2026-11-03 15:48:22] [INFO] Message Queue: message received successfully
+[2026-11-03 15:48:22] [INFO] PEEK
+[2026-11-03 15:48:23] [INFO] Message Queue: message received successfully
+[2026-11-03 15:48:23] [INFO] POP
+[2026-11-03 15:48:26] [INFO] Message Queue: message received successfully
+[2026-11-03 15:48:26] [INFO] EXIT
+[2026-11-03 15:48:26] [INFO] Core stopped.
+[2026-11-03 15:48:26] [SHUTDOWN] LOGGER_SHUTDOWN
+[2026-11-03 15:58:53] [INFO] Message Queue: queue descriptor closed
+[2026-11-03 16:03:08] [INFO] Message Queue: message received successfully
+[2026-11-03 16:03:08] [INFO] PUSH 25
+[2026-11-03 16:03:14] [INFO] Message Queue: message received successfully
+[2026-11-03 16:03:14] [INFO] PEEK 
+[2026-11-03 16:03:17] [INFO] Message Queue: message received successfully
+[2026-11-03 16:03:17] [INFO] POP
+[2026-11-03 16:03:19] [INFO] Message Queue: message received successfully
+[2026-11-03 16:03:19] [INFO] EXIT
+[2026-11-03 16:03:19] [INFO] Core stopped.
+[2026-11-03 16:03:19] [SHUTDOWN] LOGGER_SHUTDOWN
